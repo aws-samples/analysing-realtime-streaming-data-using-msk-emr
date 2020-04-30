@@ -21,7 +21,7 @@ processing logic to get handled.
 
 **Architecture**:
 
-![](media/image1.png){width="6.385416666666667in" height="3.5in"}
+![Image](images/image1.png)
 
 The typical architecture which captures data from various real time
 sources and is sent to the Messaging layer which is served by MSK. And
