@@ -313,7 +313,7 @@ groupid AWSKafkaTutorialTopic
 **Output**
 ------------------------
 
-![Image](media/image24.png){width="5.4in" height="2.4in"}
+![Image](media/image24.png)
 
 Cloud formation template 
 ------------------------
