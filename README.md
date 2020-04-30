@@ -106,7 +106,7 @@ word count application.
 13. Cloud formation template to set up EMR with spark/zeppelin and Kafka
     bootstrap scripts.
 
-### **[Setting up MSK Cluster]{.underline}**
+### **[Setting up MSK Cluster]**
 
 > First step is to create MSK cluster. Below steps outline how to create
 > MSK though AWS console.
