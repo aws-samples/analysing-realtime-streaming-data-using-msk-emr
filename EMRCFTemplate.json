@@ -1,0 +1,179 @@
+{
+    "Description": "CloudFormation template for creating an EMR cluster",
+    "Outputs": {
+        "IPAddress": {
+            "Description": "IP address of EMR cluster MasterNode",
+            "Value": {
+                "Fn::GetAtt": [
+                    "EMRSampleCluster",
+                    "MasterPublicDNS"
+                ]
+            }
+        }
+    },
+    "Parameters": {
+        "CoreInstanceCount": {
+            "Default": "3",
+            "Description": "Number of core instances",
+            "Type": "Number"
+        },
+        "CoreInstanceType": {
+            "Default": "m3.2xlarge",
+            "Description": "Instance Type of the core node",
+            "Type": "String"
+        },
+        "EMRClusterName": {
+            "Default": "EMRSampleCluster",
+            "Description": "Cluster name for the EMR",
+            "Type": "String"
+        },
+        "EMRLogDir": {
+            "Description": "Log Dir for the EMR cluster",
+            "Type": "String"
+        },
+        "KeyName": {
+            "Description": "Name of an existing EC2 KeyPair to enable SSH to the instances",
+            "Type": "AWS::EC2::KeyPair::KeyName"
+        },
+       "MasterInstanceType": {
+            "Default": "m3.2xlarge",
+            "Description": "Instance Type of the master node",
+            "Type": "String"
+        },
+        "Subnet": {
+            "Description": "Subnet ID for creating the EMR cluster",
+            "Type": "AWS::EC2::Subnet::Id"
+        },
+        "VPC": {
+            "Description": "VPC ID for creating the EMR cluster",
+            "Type": "AWS::EC2::VPC::Id"
+        },
+        "emrReleaseLabel": {
+            "Default": "emr-5.4.0",
+            "AllowedValues" : ["emr-5.0.0","emr-5.4.0", "emr-5.16.0", "emr-5.17.0"],
+            "Description": "Release label for the EMR cluster",
+            "Type": "String"
+        },
+        "s3artifactsRepo": {
+	       "Default": "s3://aws-emrmsk-blog/artifacts",
+	       "Description": "Git Repo URL for this blog.",
+	       "Type": "String"
+     	}
+    },
+
+    "Conditions" : {
+            "emr-5.4" : {"Fn::Equals" : [{"Ref" : "emrReleaseLabel"}, "emr-5.4.0"]},
+            "emr-5.0" : {"Fn::Equals" : [{"Ref" : "emrReleaseLabel"}, "emr-5.0.0"]},
+            "OlderEmrVersion": {"Fn::Or": [{"Condition": "emr-5.4"}, {"Condition": "emr-5.0" }]}
+        },
+    "Resources": {
+        "EMRSampleCluster": {
+            "Properties": {
+                "Applications": [
+                    {
+                        "Name": "Hive"
+                    },
+                    {
+                        "Name": "Spark"
+                    },
+                    {
+                        "Name": "Zepplin"
+                    }
+                ],
+                "BootstrapActions": [
+                    {
+                        "Name": "Download scripts",
+                        "ScriptBootstrapAction": {
+                            "Path": {
+                  			"Fn::Join": ["", [{"Ref" : "s3artifactsRepo"}, "/scripts/install-scripts.sh"]]},
+                            "Args": [{ "Ref" : "s3artifactsRepo" }]
+                        }
+                    }
+                ],
+                "Instances": {
+                    "CoreInstanceGroup": {
+                        "EbsConfiguration": {
+                            "EbsBlockDeviceConfigs": [
+                                {
+                                    "VolumeSpecification": {
+                                        "SizeInGB": "50",
+                                        "VolumeType": "gp2"
+                                    },
+                                    "VolumesPerInstance": "1"
+                                }
+                            ],
+                            "EbsOptimized": "true"
+                        },
+                        "InstanceCount": {
+                            "Ref": "CoreInstanceCount"
+                        },
+                        "InstanceType": {
+                            "Ref": "CoreInstanceType"
+                        },
+                        "Market": "ON_DEMAND",
+                        "Name": "Core Instance"
+                    },
+                    "Ec2KeyName": {
+                        "Ref": "KeyName"
+                    },
+                    "Ec2SubnetId": {
+                        "Ref": "Subnet"
+                    },
+                     "AdditionalMasterSecurityGroups" : [ "sg-9cb487fb","sg-9cb4876b" ],
+          "AdditionalSlaveSecurityGroups" : [ "sg-9cb48144","sg-9cb48788" ],
+                    "MasterInstanceGroup": {
+                        "InstanceCount": "1",
+                        "InstanceType": {
+                            "Ref": "MasterInstanceType"
+                        },
+                        "Market": "ON_DEMAND",
+                        "Name": "Master Instance"
+                    },
+                    "TerminationProtected": "false"
+                },
+                "JobFlowRole": "EMR_EC2_DefaultRole",
+                "LogUri": {
+                    "Ref": "EMRLogDir"
+                },
+                "Name": {
+                    "Ref": "EMRClusterName"
+                },
+                "ReleaseLabel": {
+                    "Ref": "emrReleaseLabel"
+                },
+                "ServiceRole": "EMR_DefaultRole",
+                "Tags": [
+                    {
+                        "Key": "Name",
+                        "Value": "EMR Sample Cluster"
+                    }
+                ],
+                "VisibleToAllUsers": "true"
+            },
+            "Type": "AWS::EMR::Cluster"
+        },
+        "SparkStep": {
+            "Properties": {
+                "ActionOnFailure": "CONTINUE",
+                "HadoopJarStep": {
+                    "Args": [
+                        "spark-submit",
+                        "--deploy-mode",
+                        "cluster",
+                        "--class",
+                        "org.apache.spark.examples.streaming.JavaDirectKafkaWordCount",
+                        "/usr/lib/spark/examples/jars/spark-examples.jar",
+                        "10"
+                    ],
+                    "Jar": "command-runner.jar",
+                    "MainClass": ""
+                },
+                "JobFlowId": {
+                    "Ref": "EMRSampleCluster"
+                },
+                "Name": "SparkStep"
+            },
+            "Type": "AWS::EMR::Step"
+        }
+    }
+}
