@@ -113,15 +113,15 @@ word count application.
 >
 > Key in the name and leave VPC as default. Use Kafka 2.1.0 version
 >
-> ![](media/image2.png){width="6.5in" height="4.416666666666667in"}
+> ![Image](images/image2.png){width="6.5in" height="4.416666666666667in"}
 >
 > Select the subnet and AZs.
 >
-> ![](media/image3.png){width="6.5in" height="5.03125in"}
+> ![Image](images/image3.png)![](media/image3.png){width="6.5in" height="5.03125in"}
 >
 > Select no of brokers per AZ .
 >
-> ![](media/image4.png){width="6.5in" height="4.5625in"}
+> ![Image](images/image4.png){width="6.5in" height="4.5625in"}
 >
 > ![https://cdn-images-1.medium.com/max/800/1\*7VwY56uMdmqM4wXJeVkH-w.png](media/image5.png){width="5.635416666666667in"
 > height="5.646262029746282in"}
