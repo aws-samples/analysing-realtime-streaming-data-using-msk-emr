@@ -123,17 +123,17 @@ word count application.
 >
 > ![Image](images/image4.png){width="6.5in" height="4.5625in"}
 >
-> ![https://cdn-images-1.medium.com/max/800/1\*7VwY56uMdmqM4wXJeVkH-w.png](media/image5.png){width="5.635416666666667in"
+> ![Image](media/image5.png){width="5.635416666666667in"
 > height="5.646262029746282in"}
 
 Leave the advanced details default. Click on create cluster. Wait for
 the MSK cluster to be created. This may take few minutes.
 
-![](media/image6.png){width="5.25in" height="2.7395833333333335in"}
+![Image](media/image6.png){width="5.25in" height="2.7395833333333335in"}
 
 ### **[Setting up EMR cluster with spark/Zepplin enabled.]{.underline}**
 
-![](media/image7.png){width="6.489583333333333in"
+![Image](media/image7.png){width="6.489583333333333in"
 height="3.7916666666666665in"}
 
 You can create it using cli or console also Ensure you select spark and
