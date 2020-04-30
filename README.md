@@ -253,8 +253,7 @@ bin/kafka-console-consumer.sh \--bootstrap-server
 
 If you are using zeppelin you can skip step 7.
 
-![](media/image18.png){width="9.774531933508312in"
-height="6.466229221347332in"}
+![](media/image18.png)
 
 Go to Spark interpreter, under dependencies add the below entries as per
 image. This is needed to connect o kafka and import statements to work
