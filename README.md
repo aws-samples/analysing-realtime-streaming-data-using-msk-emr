@@ -117,24 +117,22 @@ word count application.
 >
 > Select the subnet and AZs.
 >
-> ![Image](images/image3.png)![](media/image3.png){width="6.5in" height="5.03125in"}
+> ![Image](images/image3.png)
 >
 > Select no of brokers per AZ .
 >
-> ![Image](images/image4.png){width="6.5in" height="4.5625in"}
+> ![Image](images/image4.png)
 >
-> ![Image](media/image5.png){width="5.635416666666667in"
-> height="5.646262029746282in"}
+> ![Image](media/image5.png)
 
 Leave the advanced details default. Click on create cluster. Wait for
 the MSK cluster to be created. This may take few minutes.
 
-![Image](media/image6.png){width="5.25in" height="2.7395833333333335in"}
+![Image](media/image6.png)
 
 ### **[Setting up EMR cluster with spark/Zepplin enabled.]{.underline}**
 
-![Image](media/image7.png){width="6.489583333333333in"
-height="3.7916666666666665in"}
+![Image](media/image7.png)
 
 You can create it using cli or console also Ensure you select spark and
 zeppelin in advanced configurations while creating the cluster
@@ -142,30 +140,29 @@ zeppelin in advanced configurations while creating the cluster
 Remember the security key, this would be needed in the subsequent steps
 while logging into the cluster.
 
-![](media/image8.png){width="6.5in" height="3.5729166666666665in"}
+![Image](media/image8.png)
 
 ### **[Open ports and update security groups]{.underline}**
 
 > Access the MSK cluster link and click on Security Groups
 >
-> ![](media/image9.png){width="6.489583333333333in"
-> height="3.0729166666666665in"}
+> ![Image](media/image9.png)
 
 Go to EMR console and get the Security group (SG) of EMR Master.
 
-![](media/image10.png){width="6.5in" height="3.8854166666666665in"}
+![Image](media/image10.png)
 
 Update the Security Group as below entering all traffic from source as
 EMR SG name for MSK SG.
 
-![](media/image11.png){width="6.5in" height="3.2083333333333335in"}
+![Image](media/image11.png)
 
 Repeat the same steps for EMR cluster.
 
 In EMR Master Security Group add Kafka cluster Security Group name as
 source for all traffic.
 
-![](media/image12.png){width="6.5in" height="3.2in"}
+![Image](media/image12.png)
 
 ### **[Provide access for EMR cluster to operate on MSK]{.underline}**
 
@@ -177,11 +174,11 @@ Login in to the AWS console and access the IAM page link and add access
 to MSK. In the below screen shot, MSKFullAccess has been added. For the
 testing purpose full access has been provided.
 
-![](media/image13.png){width="6.5in" height="2.1in"}
+![Image](media/image13.png)
 
 After this you can execute
 
-![](media/image14.png){width="6.5in" height="0.9145833333333333in"}
+![Image](media/image14.png)
 
 by logging into EMR cluster with secret key provided during cluster
 creation.
@@ -218,7 +215,7 @@ Display the bootstrap brokers url from console or from cli.
 
 Output
 
-![](media/image15.png){width="5.3125in" height="1.7395833333333333in"}
+![Image](media/image15.png)
 
 You can also get the bootstrap servers list from the client information
 tab on the kafka Page as well.
@@ -232,9 +229,9 @@ produced and consumed.
 bin/kafka-console-consumer.sh \--bootstrap-server
 *BootstrapBrokerString* \--topic AWSKafkaTutorialTopic \--from-beginning
 
-![](media/image16.png){width="6.5in" height="1.0in"}
+![Image](media/image16.png)
 
-![](media/image17.png){width="6.5in" height="1.1in"}
+![Image](media/image17.png)
 
 **[Download Kafka Libraries]{.underline}**
 ------------------------------------------
@@ -269,7 +266,7 @@ org.apache.kafka:kafka-clients:0.10.0.0
 
 For multiple spark sessions to run, enable multiple session to true.
 
-![](media/image19.png){width="6.5in" height="4.0in"}
+![Image](media/image19.png)
 
 **[Run Streaming Code in Zeppelin.]{.underline}** 
 -------------------------------------------------
@@ -277,11 +274,11 @@ For multiple spark sessions to run, enable multiple session to true.
 This is a sample word count program where kafka consumer is run with the
 spark streaming and reads the kafka messages and prints words.
 
-![](media/image20.png){width="6.5in" height="5.2in"}
+![Image](media/image20.png)
 
-![](media/image21.png){width="6.5in" height="5.6in"}
+![Image](media/image21.png)
 
-![](media/image22.png){width="6.2in" height="4.5in"}
+![Image](media/image22.png)
 
 Spark context is up and running.
 
@@ -291,7 +288,7 @@ zeppelin console
 For the console producer to work, kafka download in the step 5 is pre
 requisite.
 
-![](media/image23.png){width="6.5in" height="4.0in"}
+![Image](media/image23.png)
 
 Alternative to zeppelin submit via spark shell
 
@@ -317,14 +314,13 @@ groupid AWSKafkaTutorialTopic
 **[Output]{.underline}**
 ------------------------
 
-![](media/image24.png){width="5.4in" height="2.4in"}
+![Image](media/image24.png){width="5.4in" height="2.4in"}
 
 Cloud formation template 
 ------------------------
 
 Sample cloud formation template to create an EMR cluster and submit
-spark step [CF
-Link](https://aws-emrmsk-blog.s3-us-west-2.amazonaws.com/artifacts/EMRCFTemplate.json)
+spark step 
 
 This CF has been added with additional SG. Ensure these SG for
 master/slave are updated with entry from MSK security group for the
@@ -333,8 +329,7 @@ Kafka port.
 Also it has a reference to install Kafka client and download some Kafka
 and spark streaming libraries in the bootstrap action which is bundled
 in the install script and needs to be placed in the referenced s3
-location. [Install
-Script](https://aws-emrmsk-blog.s3-us-west-2.amazonaws.com/artifacts/install-scripts.sh)
+location. 
 
 **[Conclusion]{.underline}**
 ============================
