@@ -106,14 +106,14 @@ word count application.
 13. Cloud formation template to set up EMR with spark/zeppelin and Kafka
     bootstrap scripts.
 
-### **[Setting up MSK Cluster]**
+### **Setting up MSK Cluster**
 
 > First step is to create MSK cluster. Below steps outline how to create
 > MSK though AWS console.
 >
 > Key in the name and leave VPC as default. Use Kafka 2.1.0 version
 >
-> ![Image](images/image2.png){width="6.5in" height="4.416666666666667in"}
+> ![Image](images/image2.png)
 >
 > Select the subnet and AZs.
 >
@@ -130,7 +130,7 @@ the MSK cluster to be created. This may take few minutes.
 
 ![Image](media/image6.png)
 
-### **[Setting up EMR cluster with spark/Zepplin enabled.]{.underline}**
+### **Setting up EMR cluster with spark/Zepplin enabled.**
 
 ![Image](media/image7.png)
 
@@ -142,7 +142,7 @@ while logging into the cluster.
 
 ![Image](media/image8.png)
 
-### **[Open ports and update security groups]{.underline}**
+### **Open ports and update security groups**
 
 > Access the MSK cluster link and click on Security Groups
 >
@@ -164,7 +164,7 @@ source for all traffic.
 
 ![Image](media/image12.png)
 
-### **[Provide access for EMR cluster to operate on MSK]{.underline}**
+### **Provide access for EMR cluster to operate on MSK**
 
 When launching EMR cluster, the default role EMR\_EC2\_DefaultRole won't
 have access to describe cluster. We need to explicitly add that access
@@ -183,7 +183,7 @@ After this you can execute
 by logging into EMR cluster with secret key provided during cluster
 creation.
 
-### **[Install kafka client on EMR cluster]{.underline}**
+### **Install kafka client on EMR cluster**
 
 This step allows you to setup kafka client on the EMR cluster. EMR
 doesn't come with kafka client installed by default. So this step allows
@@ -202,7 +202,7 @@ Extract the zip file to a folder.
 
 tar -xzf kafka\_2.11-2.1.0.tgz
 
-### **[Create topic. Doing a sample test for connectivity]{.underline}**
+### **Create topic. Doing a sample test for connectivity**
 
 From console access the zookeeper url for creating topic.
 
@@ -233,7 +233,7 @@ bin/kafka-console-consumer.sh \--bootstrap-server
 
 ![Image](media/image17.png)
 
-**[Download Kafka Libraries]{.underline}**
+**Download Kafka Libraries**
 ------------------------------------------
 
 > These libraries are needed to be installed on EMR to execute for spark
@@ -248,7 +248,7 @@ bin/kafka-console-consumer.sh \--bootstrap-server
 > wget
 > http://central.maven.org/maven2/org/apache/spark/spark-streaming-kafka-0-10\_2.11/2.4.0/spark-streaming-kafka-0-10\_2.11-2.4.0.jar
 
-**[Open zeppelin and configure interpreter]{.underline}**
+**Open zeppelin and configure interpreter**
 ---------------------------------------------------------
 
 If you are using zeppelin you can skip step 7.
@@ -268,7 +268,7 @@ For multiple spark sessions to run, enable multiple session to true.
 
 ![Image](media/image19.png)
 
-**[Run Streaming Code in Zeppelin.]{.underline}** 
+**Run Streaming Code in Zeppelin.** 
 -------------------------------------------------
 
 This is a sample word count program where kafka consumer is run with the
@@ -292,7 +292,7 @@ requisite.
 
 Alternative to zeppelin submit via spark shell
 
-**[Submitting the job via Spark shell]{.underline}**
+**Submitting the job via Spark shell**
 ----------------------------------------------------
 
 You can use spark examples and use sparksubmit command also to test the
@@ -311,7 +311,7 @@ yarn-client \--jars
 b-2.f3q7nz429i3uooyl3wy41sjin.c2.kafka.us-west-2.amazonaws.com:9092,b-1.f3q7nz429i3uooyl3wy41sjin.c2.kafka.us-west-2.amazonaws.com:9092,b-3.f3q7nz429i3uooyl3wy41sjin.c2.kafka.us-west-2.amazonaws.com:9092
 groupid AWSKafkaTutorialTopic
 
-**[Output]{.underline}**
+**Output**
 ------------------------
 
 ![Image](media/image24.png){width="5.4in" height="2.4in"}
@@ -331,7 +331,7 @@ and spark streaming libraries in the bootstrap action which is bundled
 in the install script and needs to be placed in the referenced s3
 location. 
 
-**[Conclusion]{.underline}**
+**Conclusion**
 ============================
 
 With Kafka offered as a Managed service on AWS, users can focus more on
