@@ -340,3 +340,7 @@ kafka. Features like leader selection/in synch replica brokers
 availability could be managed by the MSK platform. Users can then focus
 on processing layer to consume data from MSK and further propagate to
 visualization layer.
+
+## License
+
+This library is licensed under the MIT-0 License. See the LICENSE file.
